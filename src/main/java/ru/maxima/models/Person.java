@@ -1,13 +1,18 @@
-package ru.maxima.springboottest.ProjectSpringBoot1.models;
+package ru.maxima.models;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import java.time.LocalDateTime;
+
+@Data
 @Entity
-@Table(name = "security_person")
+@Table(name = "person")
 public class Person {
 
     @Id
@@ -24,91 +29,18 @@ public class Person {
     @Min(value = 1, message = "Age should be more than 0")
     private int age;
 
-    @Column(name = "password")
-    private String password;
+    @Column(name = "email")
+    @NotEmpty(message = "Email should not to be empty")
+    @Email(message = "Email should be valid")
+    private String email;
 
-    @Column(name = "role")
-    private String role;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
-//    @Column(name = "email")
-//    @NotEmpty(message = "Email should not to be empty")
-//    @Email(message = "Email should be valid")
-//    private String email;
-//
-//    @Column(name = "is_admin")
-//    private boolean isAdmin;
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
-    public Person() {
-    }
+    @Column(name = "removed")
+    private Boolean removed;
 
-    public Person(int id, String name, int age, String password, String role) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.password = password;
-        this.role = role;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public void setEmail(String email) {
-//        this.email = email;
-//    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-//    public boolean isAdmin() {
-//        return isAdmin;
-//    }
-//
-//    public void setAdmin(boolean admin) {
-//        isAdmin = admin;
-//    }
-
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    @Override
-    public String toString() {
-        return  "id = " + id + ", name = " + name + ", age = " + age +
-                ", password = " + password + ", role = " + role;
-    }
 }
